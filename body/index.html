@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jail website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+            <nav>
+                <p>Inicio</p>
+                <p>Canciones favs</p>
+                <p>Peliculas favs</p>
+            </nav>
+    </header>
+    <main>
+        <section>
+                <h1>Canciones favoritas</h1>
+                <div>
+                    <h2>Pensamientos</h2>
+                    <img src="../assets/Captura de pantalla (40).png" alt="Pensamientos_Airbag">
+                </div>
+                <div>
+                    <h2>No confies en tu suerte</h2>
+                    <img src="../assets/Captura de pantalla (41).png" alt="No_confies_en_tu_suerte_airbag">
+                </div>
+                <div>
+                    <h2>Vampi</h2>
+                    <img src="../assets/Captura de pantalla (42).png" alt="Vampi_babasonicos">
+                </div>
+        </section>
+        <section>
+                <h1>Peliculas Favoritas</h1>
+                <div>
+                    <h2>Robot Salvaje</h2>
+                    <img src="../assets/robot salvaje.jpg" alt="Robot_Salvaje">
+                </div>
+                <div>
+                    <h2>Grandes heroes</h2>
+                    <img src="../assets/Captura de pantalla (45).png" alt="Grandes_Heroes">
+                </div>
+                <div>
+                    <h2>Veronica</h2>
+                    <img src="../assets/Captura de pantalla (44).png" alt="Veronica">
+                </div>
+        </section>
+
+    </main>
+    <footer>
+
+    </footer>
+
+    <script>
+        const navItems = document.querySelectorAll('nav p');
+        const sections = document.querySelectorAll('main section');
+
+        // Hacer las secciones identificables
+        sections[0].id = 'canciones';
+        sections[1].id = 'peliculas';
+
+        // Agregar evento click a los elementos de navegación
+        navItems[0].addEventListener('click', () => scrollToSection('inicio'));
+        navItems[1].addEventListener('click', () => scrollToSection('canciones'));
+        navItems[2].addEventListener('click', () => scrollToSection('peliculas'));
+
+        function scrollToSection(sectionId) {
+            if (sectionId === 'inicio') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+            updateActiveNav(sectionId);
+        }
+
+        function updateActiveNav(sectionId) {
+            navItems.forEach(item => item.classList.remove('active'));
+            if (sectionId === 'inicio') {
+                navItems[0].classList.add('active');
+            } else if (sectionId === 'canciones') {
+                navItems[1].classList.add('active');
+            } else if (sectionId === 'peliculas') {
+                navItems[2].classList.add('active');
+            }
+        }
+
+        // Actualizar nav activa al hacer scroll
+        window.addEventListener('scroll', () => {
+            let current = 'inicio';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.id;
+                }
+            });
+
+            updateActiveNav(current);
+        });
+
+        // Marcar "Inicio" como activo al cargar
+        navItems[0].classList.add('active');
+    </script>
+</body>
+</html>
